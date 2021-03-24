@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1029721076665",
+    "project_id": "messenger-application-321f2",
+    "storage_bucket": "messenger-application-321f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029721076665:android:f3a1d40a40cb1c03a7fc68",
+        "android_client_info": {
+          "package_name": "lt.todo.messenger_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029721076665-6918ovq4cmncips2pbfuisifktp2sdrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4QUN7pCkkU8dN71mFgjyo15r3e9FrWGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029721076665-6918ovq4cmncips2pbfuisifktp2sdrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
