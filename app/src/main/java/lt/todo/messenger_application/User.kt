@@ -1,4 +1,3 @@
 package lt.todo.messenger_application
 
-class User {
-}
+data class User (var userId: String = "", var name: String = "", var userImage: String = "")
