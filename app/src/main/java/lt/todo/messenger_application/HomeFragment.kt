@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 
-class home_fragment : Fragment() {
+class HomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -16,6 +16,7 @@ class home_fragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home_fragment, container, false)
     }
+
 
 
 }
