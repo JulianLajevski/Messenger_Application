@@ -6,10 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.fragment_login.*
 
@@ -51,7 +47,7 @@ class LoginFragment : Fragment() {
                     true ->{
                         Toast.makeText(
                         requireContext(),
-                        "You're logged successfully!",
+                        getString(R.string.loginSuccessfulText),
                         Toast.LENGTH_SHORT
                     ).show()
                     }
@@ -59,7 +55,7 @@ class LoginFragment : Fragment() {
                         Toast.makeText(
                         requireContext(),
                         //result.exception!!.message.toString(),
-                            "Bad credentials!",
+                            getString(R.string.LoginErrorText),
                         Toast.LENGTH_SHORT
                     ).show()
                     }
