@@ -8,13 +8,21 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginFragment : Fragment() {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var firebaseUser: FirebaseUser
+    private lateinit var loginViewModel: LoginViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loginViewModel = ViewModelProvider(requireActivity()).get(LoginViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,8 +33,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        auth = FirebaseAuth.getInstance()
-        firebaseUser = auth.currentUser!!
 
         initListeners()
     }
@@ -38,25 +44,27 @@ class LoginFragment : Fragment() {
         }
 
         loginButton.setOnClickListener {
-            val email: String = emailEditText.text.toString()
-            val password: String = passwordEditText.text.toString()
+            loginViewModel.login()
+            loginViewModel.authResult.observe(viewLifecycleOwner,{ result ->
 
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{ task ->
-                if(task.isSuccessful){
-                    Toast.makeText(
+                when (result){
+                    true ->{
+                        Toast.makeText(
                         requireContext(),
                         "You're logged successfully!",
                         Toast.LENGTH_SHORT
                     ).show()
-
-                }else{
-                    Toast.makeText(
+                    }
+                    false ->{
+                        Toast.makeText(
                         requireContext(),
-                        task.exception!!.message.toString(),
+                        //result.exception!!.message.toString(),
+                            "Bad credentials!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    }
                 }
-            }
+            })
         }
 
     }
