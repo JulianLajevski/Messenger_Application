@@ -11,14 +11,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.fragment_login.*
 
-class LoginViewModel(
-    private val emailText: String,
-    private val passwordText: String
-): ViewModel() {
+class LoginViewModel: ViewModel() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firebaseUser: FirebaseUser
 
     var authResult: MutableLiveData<Boolean> = MutableLiveData()
+    var blankText: MutableLiveData<Boolean> = MutableLiveData()
 
     private fun initFirebaseAuth(){
         auth = FirebaseAuth.getInstance()
@@ -29,7 +27,7 @@ class LoginViewModel(
     }
 
 
-    fun login(){
+    fun login(emailText: String, passwordText: String){
 
         initFirebaseAuth()
         initFirebaseUser()
@@ -37,10 +35,15 @@ class LoginViewModel(
         val email: String = emailText
         val password: String = passwordText
 
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{ task ->
-            if(task.isSuccessful)
-                authResult.value = true
+        if(email.isNotBlank() || password.isNotBlank()){
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{ task ->
+                if(task.isSuccessful)
+                    authResult.value = true
+            }
+        }else{
+            blankText.value = true
         }
+
     }
 
 }

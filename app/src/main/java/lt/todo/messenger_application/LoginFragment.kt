@@ -40,27 +40,39 @@ class LoginFragment : Fragment() {
         }
 
         loginButton.setOnClickListener {
-            loginViewModel.login()
-            loginViewModel.authResult.observe(viewLifecycleOwner,{ result ->
-
-                when (result){
+            val email = emailEditText.text.toString()
+            val password = passwordEditText.text.toString()
+            loginViewModel.login(email, password)
+            loginViewModel.blankText.observe(viewLifecycleOwner, { text ->
+                when (text){
                     true ->{
-                        Toast.makeText(
-                        requireContext(),
-                        getString(R.string.loginSuccessfulText),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        Toast.makeText(requireContext(), "Email or password empty!", Toast.LENGTH_SHORT).show()
                     }
                     false ->{
-                        Toast.makeText(
-                        requireContext(),
-                        //result.exception!!.message.toString(),
-                            getString(R.string.LoginErrorText),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        loginViewModel.authResult.observe(viewLifecycleOwner,{ result ->
+
+                            when (result){
+                                true ->{
+                                    Toast.makeText(
+                                        requireContext(),
+                                        getString(R.string.loginSuccessfulText),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                false ->{
+                                    Toast.makeText(
+                                        requireContext(),
+                                        //result.exception!!.message.toString(),
+                                        getString(R.string.LoginErrorText),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                        })
                     }
                 }
             })
+
         }
 
     }
