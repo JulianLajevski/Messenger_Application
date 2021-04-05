@@ -42,36 +42,35 @@ class LoginFragment : Fragment() {
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
-            loginViewModel.login(email, password)
-            loginViewModel.blankText.observe(viewLifecycleOwner, { text ->
-                when (text){
-                    true ->{
-                        Toast.makeText(requireContext(), "Email or password empty!", Toast.LENGTH_SHORT).show()
-                    }
-                    false ->{
-                        loginViewModel.authResult.observe(viewLifecycleOwner,{ result ->
+            if(email.isNotBlank() && password.isNotBlank()){
+                loginViewModel.login(email, password)
+                loginViewModel.authResult.observe(viewLifecycleOwner,{ result ->
 
-                            when (result){
-                                true ->{
-                                    Toast.makeText(
-                                        requireContext(),
-                                        getString(R.string.loginSuccessfulText),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                                false ->{
-                                    Toast.makeText(
-                                        requireContext(),
-                                        //result.exception!!.message.toString(),
-                                        getString(R.string.LoginErrorText),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-                        })
+                    when (result){
+                        true ->{
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.loginSuccessfulText),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        false ->{
+                            Toast.makeText(
+                                requireContext(),
+                                //result.exception!!.message.toString(),
+                                getString(R.string.LoginErrorText),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                }
-            })
+                })
+            }else{
+                Toast.makeText(
+                    requireContext(),
+                    "Email or password empty!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
 
         }
 

@@ -35,14 +35,10 @@ class LoginViewModel: ViewModel() {
         val email: String = emailText
         val password: String = passwordText
 
-        if(email.isNotBlank() || password.isNotBlank()){
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{ task ->
                 if(task.isSuccessful)
                     authResult.value = true
             }
-        }else{
-            blankText.value = true
-        }
 
     }
 
