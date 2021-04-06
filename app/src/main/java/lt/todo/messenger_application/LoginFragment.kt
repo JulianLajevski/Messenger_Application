@@ -55,19 +55,20 @@ class LoginFragment : Fragment() {
                             ).show()
                         }
                         false ->{
-                            Toast.makeText(
-                                requireContext(),
-                                //result.exception!!.message.toString(),
-                                getString(R.string.LoginErrorText),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            loginViewModel.authErrorMsg.observe(viewLifecycleOwner, { errorMsg ->
+                                Toast.makeText(
+                                        requireContext(),
+                                        errorMsg,
+                                        Toast.LENGTH_SHORT
+                                ).show()
+                            })
                         }
                     }
                 })
             }else{
                 Toast.makeText(
                     requireContext(),
-                    "Email or password empty!",
+                    getString(R.string.emptyLoginFields),
                     Toast.LENGTH_SHORT
                 ).show()
             }

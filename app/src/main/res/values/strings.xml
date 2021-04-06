@@ -8,4 +8,5 @@
     <string name="loginPasswordHint">Password</string>
     <string name="loginButtonText">Login</string>
     <string name="loginRegisterButtonText">Register</string>
+    <string name="emptyLoginFields">Email or password empty!</string>
 </resources>

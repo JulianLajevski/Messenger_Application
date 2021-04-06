@@ -16,7 +16,7 @@ class LoginViewModel: ViewModel() {
     private lateinit var firebaseUser: FirebaseUser
 
     var authResult: MutableLiveData<Boolean> = MutableLiveData()
-    var blankText: MutableLiveData<Boolean> = MutableLiveData()
+    var authErrorMsg: MutableLiveData<String> = MutableLiveData()
 
     private fun initFirebaseAuth(){
         auth = FirebaseAuth.getInstance()
@@ -36,8 +36,12 @@ class LoginViewModel: ViewModel() {
         val password: String = passwordText
 
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{ task ->
-                if(task.isSuccessful)
+                if(task.isSuccessful){
                     authResult.value = true
+                }else{
+                    authErrorMsg.value = task.exception!!.message.toString()
+                }
+
             }
 
     }
