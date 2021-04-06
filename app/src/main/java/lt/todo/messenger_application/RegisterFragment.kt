@@ -56,7 +56,7 @@ class RegisterFragment : Fragment() {
                             true ->{
                                 Toast.makeText(
                                         requireContext(),
-                                        "Registered!",
+                                        getString(R.string.registerSuccesfullText),
                                         Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -74,7 +74,7 @@ class RegisterFragment : Fragment() {
                 }else{
                     Toast.makeText(
                             requireContext(),
-                            "Password not same!",
+                            getString(R.string.registerNotSamePasswordText),
                             Toast.LENGTH_SHORT
                     ).show()
                 }
