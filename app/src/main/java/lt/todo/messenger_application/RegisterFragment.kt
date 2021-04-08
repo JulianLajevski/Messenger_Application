@@ -45,29 +45,20 @@ class RegisterFragment : Fragment() {
                     registerViewModel.authResult.observe(viewLifecycleOwner, { result ->
                         when (result){
                             true ->{
-                                Toast.makeText(
-                                        requireContext(),
-                                        getString(R.string.registerSuccesfullText),
-                                        Toast.LENGTH_SHORT
-                                ).show()
+                                showToast(requireContext(),
+                                    getString(R.string.registerSuccesfullText))
                             }
                             false ->{
                                 registerViewModel.authErrorMessage.observe(viewLifecycleOwner,{ errorMsg ->
-                                    Toast.makeText(
-                                            requireContext(),
-                                            errorMsg,
-                                            Toast.LENGTH_SHORT
-                                    ).show()
+                                    showToast(requireContext(),
+                                        errorMsg)
                                 })
                             }
                         }
                     })
                 }else{
-                    Toast.makeText(
-                            requireContext(),
-                            getString(R.string.registerNotSamePasswordText),
-                            Toast.LENGTH_SHORT
-                    ).show()
+                    showToast(requireContext(),
+                        getString(R.string.registerNotSamePasswordText))
                 }
             }
 
