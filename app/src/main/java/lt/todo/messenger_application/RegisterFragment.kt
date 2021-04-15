@@ -39,28 +39,30 @@ class RegisterFragment : Fragment() {
             val name = etToString(nameEt)
             val confirmPassword = etToString(passwordConfirmEt)
 
-            if(email.isNotBlank() && password.isNotBlank() && name.isNotBlank() && confirmPassword.isNotBlank()){
-                if(password == confirmPassword){
-                    registerViewModel.register(email, password, name)
-                    registerViewModel.authResult.observe(viewLifecycleOwner, { result ->
-                        when (result){
-                            true ->{
-                                showToast(requireContext(),
-                                    getString(R.string.registerSuccesfullText))
-                            }
-                            false ->{
-                                registerViewModel.authErrorMessage.observe(viewLifecycleOwner,{ errorMsg ->
-                                    showToast(requireContext(),
-                                        errorMsg)
-                                })
-                            }
-                        }
-                    })
-                }else{
-                    showToast(requireContext(),
-                        getString(R.string.registerNotSamePasswordText))
-                }
+            if(email.isBlank() || password.isBlank() || name.isBlank() || confirmPassword.isBlank()){
+               showToast(requireContext(), getString(R.string.registerFieldsNotFillText))
+                return@setOnClickListener
             }
+            if(password != confirmPassword){
+                showToast(requireContext(), getString(R.string.registerNotSamePasswordText))
+                return@setOnClickListener
+            }
+
+            registerViewModel.register(email, password, name)
+            registerViewModel.authResult.observe(viewLifecycleOwner, { result ->
+                when (result){
+                    true ->{
+                        showToast(requireContext(),
+                                getString(R.string.registerSuccesfullText))
+                    }
+                    false ->{
+                        registerViewModel.authErrorMessage.observe(viewLifecycleOwner,{ errorMsg ->
+                            showToast(requireContext(),
+                                    errorMsg)
+                        })
+                    }
+                }
+            })
 
         }
     }
